@@ -1,0 +1,3 @@
+Configure miss: GTKDOC_DEPS
+Configure miss: LIBIDN2
+Configure miss: library containing idn2_lookup_u8
