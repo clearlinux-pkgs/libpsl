@@ -4,7 +4,7 @@
 #
 Name     : libpsl
 Version  : 0.20.2
-Release  : 1
+Release  : 2
 URL      : https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.20.2/libpsl-0.20.2.tar.gz
 Source0  : https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.20.2/libpsl-0.20.2.tar.gz
 Summary  : Public Suffix List C library.
@@ -15,9 +15,17 @@ Requires: libpsl-lib
 Requires: libpsl-license
 Requires: libpsl-man
 BuildRequires : docbook-xml
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
 BuildRequires : libxslt-bin
+BuildRequires : pkg-config
+BuildRequires : pkgconfig(32icu-uc)
+BuildRequires : pkgconfig(32libidn)
 BuildRequires : pkgconfig(icu-uc)
 BuildRequires : pkgconfig(libidn)
 
@@ -45,6 +53,17 @@ Provides: libpsl-devel
 dev components for the libpsl package.
 
 
+%package dev32
+Summary: dev32 components for the libpsl package.
+Group: Default
+Requires: libpsl-lib32
+Requires: libpsl-bin
+Requires: libpsl-dev
+
+%description dev32
+dev32 components for the libpsl package.
+
+
 %package lib
 Summary: lib components for the libpsl package.
 Group: Libraries
@@ -52,6 +71,15 @@ Requires: libpsl-license
 
 %description lib
 lib components for the libpsl package.
+
+
+%package lib32
+Summary: lib32 components for the libpsl package.
+Group: Default
+Requires: libpsl-license
+
+%description lib32
+lib32 components for the libpsl package.
 
 
 %package license
@@ -72,16 +100,27 @@ man components for the libpsl package.
 
 %prep
 %setup -q -n libpsl-0.20.2
+pushd ..
+cp -a libpsl-0.20.2 build32
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536133041
+export SOURCE_DATE_EPOCH=1536133217
 %configure --disable-static
 make  %{?_smp_mflags}
 
+pushd ../build32/
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export CFLAGS="$CFLAGS -m32"
+export CXXFLAGS="$CXXFLAGS -m32"
+export LDFLAGS="$LDFLAGS -m32"
+%configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -90,12 +129,21 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1536133041
+export SOURCE_DATE_EPOCH=1536133217
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/libpsl
 cp COPYING %{buildroot}/usr/share/doc/libpsl/COPYING
 cp LICENSE %{buildroot}/usr/share/doc/libpsl/LICENSE
 cp src/LICENSE.chromium %{buildroot}/usr/share/doc/libpsl/src_LICENSE.chromium
+pushd ../build32/
+%make_install32
+if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
+then
+pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
+popd
 %make_install
 
 %files
@@ -111,10 +159,21 @@ cp src/LICENSE.chromium %{buildroot}/usr/share/doc/libpsl/src_LICENSE.chromium
 /usr/lib64/libpsl.so
 /usr/lib64/pkgconfig/libpsl.pc
 
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libpsl.so
+/usr/lib32/pkgconfig/32libpsl.pc
+/usr/lib32/pkgconfig/libpsl.pc
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libpsl.so.5
 /usr/lib64/libpsl.so.5.3.1
+
+%files lib32
+%defattr(-,root,root,-)
+/usr/lib32/libpsl.so.5
+/usr/lib32/libpsl.so.5.3.1
 
 %files license
 %defattr(-,root,root,-)
