@@ -4,7 +4,7 @@
 #
 Name     : libpsl
 Version  : 0.21.0
-Release  : 4
+Release  : 5
 URL      : https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.21.0/libpsl-0.21.0.tar.gz
 Source0  : https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.21.0/libpsl-0.21.0.tar.gz
 Summary  : Public Suffix List C library.
@@ -100,6 +100,7 @@ man components for the libpsl package.
 
 %prep
 %setup -q -n libpsl-0.21.0
+cd %{_builddir}/libpsl-0.21.0
 pushd ..
 cp -a libpsl-0.21.0 build32
 popd
@@ -109,11 +110,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568865488
+export SOURCE_DATE_EPOCH=1604443114
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
@@ -132,17 +133,17 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1568865488
+export SOURCE_DATE_EPOCH=1604443114
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libpsl
-cp COPYING %{buildroot}/usr/share/package-licenses/libpsl/COPYING
-cp LICENSE %{buildroot}/usr/share/package-licenses/libpsl/LICENSE
-cp src/LICENSE.chromium %{buildroot}/usr/share/package-licenses/libpsl/src_LICENSE.chromium
+cp %{_builddir}/libpsl-0.21.0/COPYING %{buildroot}/usr/share/package-licenses/libpsl/11688b6f9d81a04ed799175031d1edfe9aa6a0cf
+cp %{_builddir}/libpsl-0.21.0/LICENSE %{buildroot}/usr/share/package-licenses/libpsl/5c185b7842aea33889989ac88bfd4ebae70c7dc9
+cp %{_builddir}/libpsl-0.21.0/src/LICENSE.chromium %{buildroot}/usr/share/package-licenses/libpsl/73187e456b0901438d4982e4fcb4391a0e7dadef
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -185,9 +186,9 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/libpsl/COPYING
-/usr/share/package-licenses/libpsl/LICENSE
-/usr/share/package-licenses/libpsl/src_LICENSE.chromium
+/usr/share/package-licenses/libpsl/11688b6f9d81a04ed799175031d1edfe9aa6a0cf
+/usr/share/package-licenses/libpsl/5c185b7842aea33889989ac88bfd4ebae70c7dc9
+/usr/share/package-licenses/libpsl/73187e456b0901438d4982e4fcb4391a0e7dadef
 
 %files man
 %defattr(0644,root,root,0755)
