@@ -1,6 +1,9 @@
-Configure miss: GTKDOC_DEPS
-Configure miss: LIBIDN2
+Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
+Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
+Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
+Configure miss: libidn2
+Configure miss: libidn2
+Configure miss: libidn2
 Configure miss: library containing idn2_lookup_u8
-Configure miss: GTKDOC_DEPS
-Configure miss: LIBIDN2
+Configure miss: library containing idn2_lookup_u8
 Configure miss: library containing idn2_lookup_u8
