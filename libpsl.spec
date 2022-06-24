@@ -4,7 +4,7 @@
 #
 Name     : libpsl
 Version  : 0.21.1
-Release  : 6
+Release  : 7
 URL      : https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
 Source0  : https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
 Summary  : Public Suffix List C library.
@@ -125,7 +125,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1644259072
+export SOURCE_DATE_EPOCH=1656047919
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -165,7 +165,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1644259072
+export SOURCE_DATE_EPOCH=1656047919
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libpsl
 cp %{_builddir}/libpsl-0.21.1/COPYING %{buildroot}/usr/share/package-licenses/libpsl/11688b6f9d81a04ed799175031d1edfe9aa6a0cf
@@ -190,7 +190,7 @@ pushd ../buildavx2/
 %make_install_v3
 popd
 %make_install
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -218,9 +218,11 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so.5
+/usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so.5.3.3
 /usr/lib64/libpsl.so.5
 /usr/lib64/libpsl.so.5.3.3
-/usr/share/clear/optimized-elf/lib*
 
 %files lib32
 %defattr(-,root,root,-)
