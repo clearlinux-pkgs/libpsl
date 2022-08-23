@@ -4,7 +4,7 @@
 #
 Name     : libpsl
 Version  : 0.21.1
-Release  : 10
+Release  : 11
 URL      : https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
 Source0  : https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
 Summary  : Public Suffix List C library.
