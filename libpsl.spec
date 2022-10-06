@@ -4,7 +4,7 @@
 #
 Name     : libpsl
 Version  : 0.21.1
-Release  : 12
+Release  : 13
 URL      : https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
 Source0  : https://github.com/rockdaboot/libpsl/releases/download/0.21.1/libpsl-0.21.1.tar.gz
 Summary  : Public Suffix List C library.
@@ -125,7 +125,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656131731
+export SOURCE_DATE_EPOCH=1665098857
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -165,12 +165,12 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1656131731
+export SOURCE_DATE_EPOCH=1665098857
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libpsl
-cp %{_builddir}/libpsl-0.21.1/COPYING %{buildroot}/usr/share/package-licenses/libpsl/11688b6f9d81a04ed799175031d1edfe9aa6a0cf
-cp %{_builddir}/libpsl-0.21.1/LICENSE %{buildroot}/usr/share/package-licenses/libpsl/5c185b7842aea33889989ac88bfd4ebae70c7dc9
-cp %{_builddir}/libpsl-0.21.1/src/LICENSE.chromium %{buildroot}/usr/share/package-licenses/libpsl/73187e456b0901438d4982e4fcb4391a0e7dadef
+cp %{_builddir}/libpsl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libpsl/11688b6f9d81a04ed799175031d1edfe9aa6a0cf
+cp %{_builddir}/libpsl-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/libpsl/5c185b7842aea33889989ac88bfd4ebae70c7dc9
+cp %{_builddir}/libpsl-%{version}/src/LICENSE.chromium %{buildroot}/usr/share/package-licenses/libpsl/73187e456b0901438d4982e4fcb4391a0e7dadef
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -203,6 +203,7 @@ popd
 %files dev
 %defattr(-,root,root,-)
 /usr/include/libpsl.h
+/usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so
 /usr/lib64/libpsl.so
 /usr/lib64/pkgconfig/libpsl.pc
 
@@ -218,7 +219,6 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so.5
 /usr/lib64/glibc-hwcaps/x86-64-v3/libpsl.so.5.3.3
 /usr/lib64/libpsl.so.5
