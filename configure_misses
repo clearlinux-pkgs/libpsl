@@ -1,9 +1,17 @@
+Configure miss: 32-bit host C ABI
+Configure miss: 32-bit host C ABI
+Configure miss: CFLocaleCopyPreferredLanguages
+Configure miss: CFLocaleCopyPreferredLanguages
+Configure miss: CFLocaleCopyPreferredLanguages
 Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
 Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
 Configure miss: glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0
+Configure miss: i686-generic-linux-gnu-file
 Configure miss: libidn2
 Configure miss: libidn2
 Configure miss: libidn2
 Configure miss: library containing idn2_lookup_u8
 Configure miss: library containing idn2_lookup_u8
 Configure miss: library containing idn2_lookup_u8
+Configure miss: x86_64-generic-linux-gnu-file
+Configure miss: x86_64-generic-linux-gnu-file
